@@ -1,4 +1,4 @@
-import { createLobby, createPlayer, createGame } from "../actions";
+import { createLobby, createPlayer, createGame, joinGame } from "../actions";
 import { Lobby } from "../types";
 import cloneDeep from 'lodash.clonedeep';
 
@@ -20,6 +20,23 @@ const lobbyWithOnePlayer: Lobby = {
             id: '1',
             name: 'Johnny',
             ready: false
+        }
+    ]
+}
+
+const lobbyWithOneGame: Lobby = {
+    ...cd(lobbyWithOnePlayer),
+    games: [
+        {
+            id: '1',
+            status: 'NOT_STARTED',
+            players: [
+                {
+                    id: '2',
+                    name:  'Lila',
+                    ready: false
+                }
+            ]
         }
     ]
 }
@@ -68,5 +85,32 @@ describe('createGame function', () => {
         expect(lobby).toEqual({
             ...cd(lobbyWithOnePlayer), playersNotJoined: [], games: [newGame]
         })
+    })
+
+    it('throws an error when given a faulty playerId', () => {
+        const lobby = cd(lobbyWithOnePlayer);
+        expect(() => createGame('falsy', lobby)).toThrowError('A player with that id was not found');
+    })
+})
+
+describe('joinGame function', () => {
+    it('returns the updated game and updates the lobby as expected', () => {
+        const lobby = cd(lobbyWithOneGame);
+        const game = lobby.games[0];
+        const player = lobby.playersNotJoined[0];
+        const updatedGame = joinGame(game.id, player.id, lobby);
+        expect(updatedGame.players).toEqual([game.players[0], player])
+
+        expect(lobby).toEqual({
+            ...cd(lobbyWithOneGame), playersNotJoined: [], games: [updatedGame]
+        })
+    })
+
+    it('throws an error when given a faulty gameId or playerId', () => {
+        const lobby = cd(lobbyWithOneGame);
+        const game = lobby.games[0];
+        const player = lobby.playersNotJoined[0];
+        expect(() => joinGame('falsy', player.id, lobby)).toThrowError('A game with that id was not found');
+        expect(() => joinGame(game.id, 'fake', lobby)).toThrowError('A player with that id was not found');
     })
 })

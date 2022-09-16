@@ -67,6 +67,8 @@ export const joinGame = (gameId: string, playerId: string, lobby: Lobby): Game =
     const updatedGame = { ...cd(game), players: game.players.concat(player) }
 
     lobby.games = lobby.games.map(g => g.id === gameId ? updatedGame : g)
+    lobby.playersNotJoined = lobby.playersNotJoined
+        .filter(p => p.id !== playerId)
 
     return updatedGame
 }
