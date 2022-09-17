@@ -1,45 +1,8 @@
-import { createLobby, createPlayer, createGame, joinGame } from "../actions";
-import { Lobby } from "../types";
+import { createLobby, createPlayer, createGame, joinGame, toggleReady } from "../actions";
 import cloneDeep from 'lodash.clonedeep';
+import { emptyLobby, lobbyWithOnePlayer, lobbyWithOneGame } from "./testData";
 
 const cd = cloneDeep;
-
-const emptyLobby: Lobby = {
-    games: [],
-    playersNotJoined: [],
-    lobbyOptions: {
-        minPlayers: 2,
-        maxPlayers: 5,
-    }
-}
-
-const lobbyWithOnePlayer: Lobby = {
-    ...cd(emptyLobby),
-    playersNotJoined: [
-        {
-            id: '1',
-            name: 'Johnny',
-            ready: false
-        }
-    ]
-}
-
-const lobbyWithOneGame: Lobby = {
-    ...cd(lobbyWithOnePlayer),
-    games: [
-        {
-            id: '1',
-            status: 'NOT_STARTED',
-            players: [
-                {
-                    id: '2',
-                    name:  'Lila',
-                    ready: false
-                }
-            ]
-        }
-    ]
-}
 
 describe('createLobby function', () => {
     it('works as expected with valid arguments', () => {
@@ -112,5 +75,22 @@ describe('joinGame function', () => {
         const player = lobby.playersNotJoined[0];
         expect(() => joinGame('falsy', player.id, lobby)).toThrowError('A game with that id was not found');
         expect(() => joinGame(game.id, 'fake', lobby)).toThrowError('A player with that id was not found');
+    })
+})
+
+describe('toggleReady function', () => {
+    it('updates the lobby as expected', () => {
+        const lobby = cd(lobbyWithOneGame);
+        const player = lobby.games[0].players[0];
+        toggleReady(player.id, lobby);
+
+        expect(lobby).toEqual({
+            ...cd(lobbyWithOneGame),
+            games: [{ ...lobby.games[0], players: [{ ...lobby.games[0].players[0], ready: true }] }]
+        })
+    })
+    it('Throws an error when given a faulty playerId', () => {
+        const lobby = cd(lobbyWithOneGame);
+        expect(() => toggleReady('fakeID', lobby)).toThrowError('A game containing that player was not found');
     })
 })

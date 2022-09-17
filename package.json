@@ -5,7 +5,8 @@
   "main": "./lib/index.js",
   "scripts": {
     "build": "npx tsc",
-    "test": "jest --verbose"
+    "testall": "jest --verbose",
+    "test": "npm run testall ./src/tests"
   },
   "author": "Daniel Redly",
   "license": "ISC",

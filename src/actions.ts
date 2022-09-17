@@ -77,11 +77,12 @@ export const toggleReady = (playerId: string, lobby: Lobby): void => {
     // Sets the player's ready attribute to the opposite of what it was before
     const game = lobby.games.find(g => g.players.map(p => p.id).includes(playerId));
     if (!game) {
-        throw new Error('Game not found')
+        throw new Error('A game containing that player was not found')
     }
     const updatedGame = { 
         ...cd(game), 
-        players: game.players.filter(p => p.id === playerId ? {...p, ready: !p.ready} : p) 
+        players: game.players.map(p => p.id === playerId ? {...p, ready: !p.ready} : p) 
     }
+    console.log('updatedGame', updatedGame)
     lobby.games = lobby.games.map(g => g.id === updatedGame.id ? updatedGame : g)
 }
