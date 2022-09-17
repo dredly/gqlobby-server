@@ -1,6 +1,7 @@
 import { LobbyOptions, Lobby, Player, Game } from "./types";
 import { v4 as uuidv4 } from 'uuid';
 import cloneDeep from 'lodash.clonedeep';
+import every from "lodash.every";
 
 /*
 Trying to follow functional programming principals where possible, so only the lobby can be mutated
@@ -59,6 +60,9 @@ export const joinGame = (gameId: string, playerId: string, lobby: Lobby): Game =
     if (!game) {
         throw new Error('A game with that id was not found')
     }
+    if (game.players.length === lobby.lobbyOptions.maxPlayers) {
+        throw new Error('Cannot join that game as it is already full')
+    }
     const player = lobby.playersNotJoined.find(p => p.id === playerId);
     if (!player) {
         throw new Error('A player with that id was not found');
@@ -85,4 +89,26 @@ export const toggleReady = (playerId: string, lobby: Lobby): void => {
     }
     console.log('updatedGame', updatedGame)
     lobby.games = lobby.games.map(g => g.id === updatedGame.id ? updatedGame : g)
+}
+
+export const startGame = (gameId: string, lobby: Lobby) => {
+    const game = lobby.games.find(g => g.id === gameId);
+    if (!game) {
+        throw new Error('A game with that id was not found')
+    }
+    const allReady = every(game.players.map(p => p.ready));
+    if (!allReady) {
+        throw new Error('Players must all be ready to start game')
+    }
+    if (game.players.length < lobby.lobbyOptions.minPlayers) {
+        throw new Error('Not enough players to start game')
+    }
+
+    const updatedGame: Game = {
+        ...cd(game),
+        status: 'IN_PROGRESS'
+    }
+
+    lobby.games = lobby.games.map(g => g.id === gameId ? updatedGame : g)
+    return updatedGame;
 }

@@ -1,6 +1,13 @@
-import { createLobby, createPlayer, createGame, joinGame, toggleReady } from "../actions";
+import { createLobby, createPlayer, createGame, joinGame, toggleReady, startGame } from "../actions";
 import cloneDeep from 'lodash.clonedeep';
-import { emptyLobby, lobbyWithOnePlayer, lobbyWithOneGame } from "./testData";
+import { 
+    emptyLobby, 
+    lobbyWithOnePlayer, 
+    lobbyWithOneGame, 
+    lobbyWithFullGame,
+    lobbyWithOneGameWithPlayerReady,
+    lobbyWithReadyGame 
+} from "./testData";
 
 const cd = cloneDeep;
 
@@ -76,6 +83,13 @@ describe('joinGame function', () => {
         expect(() => joinGame('falsy', player.id, lobby)).toThrowError('A game with that id was not found');
         expect(() => joinGame(game.id, 'fake', lobby)).toThrowError('A player with that id was not found');
     })
+
+    it('throws an error if a player tries to join a game which is already full', () => {
+        const lobby = cd(lobbyWithFullGame);
+        const game = lobby.games[0];
+        const player = lobby.playersNotJoined[0];
+        expect(() => joinGame(game.id, player.id, lobby)).toThrowError('Cannot join that game as it is already full');
+    })
 })
 
 describe('toggleReady function', () => {
@@ -92,5 +106,36 @@ describe('toggleReady function', () => {
     it('Throws an error when given a faulty playerId', () => {
         const lobby = cd(lobbyWithOneGame);
         expect(() => toggleReady('fakeID', lobby)).toThrowError('A game containing that player was not found');
+    })
+})
+
+describe('startGame function', () => {
+    it('updates the lobby as expected and returns the newly started game as expected when given valid input', () => {
+        const lobby = cd(lobbyWithReadyGame);
+        const updatedGame = startGame('1', lobby);
+        expect(updatedGame).toEqual({
+            ...cd(lobby.games[0]),
+            status: 'IN_PROGRESS'
+        })
+
+        expect(lobby).toEqual({
+            ...cd(lobbyWithReadyGame),
+            games: [updatedGame]
+        })
+    })
+
+    it('Throws an error if given a faulty gameId', () => {
+        const lobby = cd(lobbyWithFullGame);
+        expect(() => startGame('7', lobby)).toThrowError('A game with that id was not found');
+    })
+
+    it('Throws an error if not all players are ready', () => {
+        const lobby = cd(lobbyWithFullGame);
+        expect(() => startGame('1', lobby)).toThrowError('Players must all be ready to start game');
+    })
+
+    it('Throws an error if trying to start the game with not enough players', () => {
+        const lobby = cd(lobbyWithOneGameWithPlayerReady);
+        expect(() => startGame('1', lobby)).toThrowError('Not enough players to start game');
     })
 })
