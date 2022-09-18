@@ -40,5 +40,8 @@ export const typeDefs = gql`
         createLobby(minPlayers: Int! maxPlayers: Int!): Lobby
         createPlayer(name: String!): Player
         createGame(playerID: ID!): Game
+        joinGame(gameID: ID! playerID: ID!): Game
+        toggleReady(playerID: ID!): Game
+        startGame(gameID!: ID!): Game
     }
 `;
