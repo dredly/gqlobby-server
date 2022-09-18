@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server';
 
-const typeDefs = gql`
+export const typeDefs = gql`
     type Player {
         id: ID!
         name: String!
@@ -31,8 +31,14 @@ const typeDefs = gql`
     }
 
     type Query {
-        gameCount: Int!
+        lobby: Lobby!
+        allGames: [Game!]!
+        allPlayersNotJoined: [Player!]!
+    }
+
+    type Mutation {
+        createLobby(lobbyOptions: LobbyOptions): Lobby
+        createPlayer(name: String!): Player
+        createGame(playerID: ID!): Game
     }
 `;
-
-export default typeDefs;

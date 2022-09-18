@@ -1,2 +1,1 @@
-declare const typeDefs: import("graphql").DocumentNode;
-export default typeDefs;
+export declare const typeDefs: import("graphql").DocumentNode;

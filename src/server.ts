@@ -5,8 +5,8 @@ import { useServer } from 'graphql-ws/lib/use/ws';
 import express from 'express';
 import http from 'http';
 
-import typeDefs from './typeDefs';
-import resolvers from './resolvers/resolvers';
+import { typeDefs } from './typeDefs';
+import { resolvers } from './resolvers/resolvers';
 
 const start = async () => {
 	const app = express();
