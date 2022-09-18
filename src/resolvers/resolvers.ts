@@ -13,9 +13,7 @@ export const state = {
 	lobby: createLobby(DEFAULT_LOBBY_OPTIONS)
 };
 
-const resolvers = {
+export const resolvers = {
 	Query: queryResolvers,
 	Mutation: mutationResolvers,
 };
-
-export default resolvers;
