@@ -1,0 +1,3 @@
+- [x] Finish initial set of resolvers
+- [ ] Add subscriptions
+- [ ] Make it so only the creator of a game can start it?

@@ -78,7 +78,7 @@ export const joinGame = (gameId: string, playerId: string, lobby: Lobby): Game =
 	return updatedGame;
 };
 
-export const toggleReady = (playerId: string, lobby: Lobby): void => {
+export const toggleReady = (playerId: string, lobby: Lobby): Game => {
 	// Sets the player's ready attribute to the opposite of what it was before
 	const game = lobby.games.find(g => g.players.map(p => p.id).includes(playerId));
 	if (!game) {
@@ -90,9 +90,10 @@ export const toggleReady = (playerId: string, lobby: Lobby): void => {
 	};
 	console.log('updatedGame', updatedGame);
 	lobby.games = lobby.games.map(g => g.id === updatedGame.id ? updatedGame : g);
+	return updatedGame;
 };
 
-export const startGame = (gameId: string, lobby: Lobby) => {
+export const startGame = (gameId: string, lobby: Lobby): Game => {
 	const game = lobby.games.find(g => g.id === gameId);
 	if (!game) {
 		throw new Error('A game with that id was not found');
