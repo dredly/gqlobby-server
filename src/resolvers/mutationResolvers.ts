@@ -5,8 +5,12 @@ import { createGame as createGameAction } from '../actions';
 import { LobbyOptions } from '../types';
 
 export const mutationResolvers = {
-	createLobby: (_root: undefined, args: {lobbyOptions: LobbyOptions}) => {
-		state.lobby = createLobbyAction(args.lobbyOptions);
+	createLobby: (_root: undefined, args: {minPlayers: number, maxPlayers: number}) => {
+		const opts: LobbyOptions = {
+			minPlayers: args.minPlayers,
+			maxPlayers: args.maxPlayers
+		};
+		state.lobby = createLobbyAction(opts);
 		return state.lobby;
 	},
 	createPlayer: (_root: undefined, args: {name: string}) => createPlayerAction(args.name, state.lobby),

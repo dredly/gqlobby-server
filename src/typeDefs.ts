@@ -19,7 +19,7 @@ export const typeDefs = gql`
         status: GameStatus
     }
 
-    input LobbyOptions {
+    type LobbyOptions {
         minPlayers: Int!
         maxPlayers: Int!
     }
@@ -37,7 +37,7 @@ export const typeDefs = gql`
     }
 
     type Mutation {
-        createLobby(lobbyOptions: LobbyOptions): Lobby
+        createLobby(minPlayers: Int! maxPlayers: Int!): Lobby
         createPlayer(name: String!): Player
         createGame(playerID: ID!): Game
     }

@@ -1,7 +1,7 @@
-import { LobbyOptions } from '../types';
 export declare const mutationResolvers: {
     createLobby: (_root: undefined, args: {
-        lobbyOptions: LobbyOptions;
+        minPlayers: number;
+        maxPlayers: number;
     }) => import("../types").Lobby;
     createPlayer: (_root: undefined, args: {
         name: string;
