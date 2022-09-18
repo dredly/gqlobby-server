@@ -1,4 +1,4 @@
-import { state } from './resolvers';
+import { state, pubsub } from './resolvers';
 import { createPlayer as createPlayerAction } from '../actions';
 import { createLobby as createLobbyAction } from '../actions';
 import { createGame as createGameAction } from '../actions';
@@ -17,10 +17,24 @@ export const mutationResolvers = {
 		return state.lobby;
 	},
 	createPlayer: (_root: undefined, args: {name: string}) => createPlayerAction(args.name, state.lobby),
-	createGame: (_root: undefined, args: {playerID: string}) => createGameAction(args.playerID, state.lobby),
-	joinGame: (_root: undefined, args: {gameID: string, playerID: string}) => (
-		joinGameAction(args.gameID, args.playerID, state.lobby)
-	),
-	toggleReady: (_root: undefined, args: {playerID: string}) => toggleReadyAction(args.playerID, state.lobby),
-	startGame: (_root: undefined, args: {gameID: string}) => startGameAction(args.gameID, state.lobby)
+	createGame: (_root: undefined, args: {playerID: string}) => {
+		const newGame = createGameAction(args.playerID, state.lobby);
+		void pubsub.publish('GAME_ADDED', {gameAdded: newGame});
+		return newGame;
+	},
+	joinGame: (_root: undefined, args: {gameID: string, playerID: string}) => {
+		const joinedGame = joinGameAction(args.gameID, args.playerID, state.lobby);
+		void pubsub.publish('GAME_UPDATED', {gameUpdated: joinedGame});
+		return joinedGame;
+	},
+	toggleReady: (_root: undefined, args: {playerID: string}) =>  {
+		const updatedGame = toggleReadyAction(args.playerID, state.lobby);
+		void pubsub.publish('GAME_UPDATED', {gameUpdated: updatedGame});
+		return updatedGame;
+	},
+	startGame: (_root: undefined, args: {gameID: string}) => {
+		const startedGame = startGameAction(args.gameID, state.lobby);
+		void pubsub.publish('GAME_STARTED', {gameStarted: startedGame});
+		return startedGame;
+	} 
 };

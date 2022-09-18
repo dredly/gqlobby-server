@@ -1,3 +1,5 @@
+import { PubSub } from 'graphql-subscriptions';
+
 import { createLobby } from '../actions';
 import { LobbyOptions } from '../types';
 import { queryResolvers } from './queryResolvers';
@@ -12,6 +14,8 @@ const DEFAULT_LOBBY_OPTIONS: LobbyOptions = {
 export const state = {
 	lobby: createLobby(DEFAULT_LOBBY_OPTIONS)
 };
+
+export const pubsub = new PubSub();
 
 export const resolvers = {
 	Query: queryResolvers,
