@@ -4,7 +4,7 @@ export interface Player {
     ready: boolean
 }
 
-export type GameStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'FINISHED'
+export type GameStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'FINISHED';
   
 export interface Game {
     id: string

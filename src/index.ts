@@ -1,9 +1,13 @@
-import { createLobby, createPlayer, createGame, joinGame, toggleReady } from "./actions";
+// import { createLobby, createPlayer, createGame, joinGame, toggleReady } from './actions';
 
-export default {
-    createLobby,
-    createPlayer,
-    createGame,
-    joinGame,
-    toggleReady
-}
+import start from './server';
+
+export default start;
+
+// export default {
+// 	createLobby,
+// 	createPlayer,
+// 	createGame,
+// 	joinGame,
+// 	toggleReady,
+// };
