@@ -1,7 +1,7 @@
 import { createLobby } from '../actions';
 import { LobbyOptions } from '../types';
-import queryResolvers from './queryResolvers';
-import mutationResolvers from './mutationResolvers';
+import { queryResolvers } from './queryResolvers';
+import { mutationResolvers } from './mutationResolvers';
 
 const DEFAULT_LOBBY_OPTIONS: LobbyOptions = {
 	minPlayers: 2,
