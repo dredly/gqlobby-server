@@ -44,4 +44,10 @@ export const typeDefs = gql`
         toggleReady(playerID: ID!): Game
         startGame(gameID: ID!): Game
     }
+
+    type Subscription {
+        gameAdded: Game!
+        gameUpdated: Game!
+        gameStarted: Game!
+    }
 `;
