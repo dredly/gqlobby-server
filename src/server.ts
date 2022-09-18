@@ -18,7 +18,7 @@ const start = async () => {
 		server: httpServer,
 		// Pass a different path here if your ApolloServer serves at
 		// a different path.
-		path: '/graphql',
+		path: '',
 	});
 
 	const serverCleanup = useServer({ schema }, wsServer);

@@ -8,5 +8,6 @@
 ## Later on
 
 - [ ] Add different game modes, which may have different max number of players
+- [ ] Timeout for inactivity
 - [ ] Add option to enforce unique usernames
 - [ ] Add option to use redis database
