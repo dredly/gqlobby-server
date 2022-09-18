@@ -42,6 +42,6 @@ export const typeDefs = gql`
         createGame(playerID: ID!): Game
         joinGame(gameID: ID! playerID: ID!): Game
         toggleReady(playerID: ID!): Game
-        startGame(gameID!: ID!): Game
+        startGame(gameID: ID!): Game
     }
 `;
