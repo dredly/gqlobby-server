@@ -19,7 +19,7 @@ export const typeDefs = gql`
         status: GameStatus
     }
 
-    type LobbyOptions {
+    input LobbyOptions {
         minPlayers: Int!
         maxPlayers: Int!
     }
