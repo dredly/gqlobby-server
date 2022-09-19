@@ -2,12 +2,12 @@ import { PubSub } from 'graphql-subscriptions';
 import { Lobby } from '../types';
 export declare const pubsub: PubSub;
 export declare const getResolvers: (lobby: Lobby) => {
-    Query: () => {
+    Query: {
         lobby: () => Lobby;
         allGames: () => import("../types").Game[];
         allPlayersNotJoined: () => import("../types").Player[];
     };
-    Mutation: () => {
+    Mutation: {
         createPlayer: (_root: undefined, args: {
             name: string;
         }) => import("../types").Player;

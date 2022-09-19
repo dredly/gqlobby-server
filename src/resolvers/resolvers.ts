@@ -9,8 +9,8 @@ export const pubsub = new PubSub();
 
 export const getResolvers = (lobby: Lobby) => {
 	return {
-		Query: () => getQueryResolvers(lobby),
-		Mutation: () => getMutationResolvers(lobby),
+		Query: getQueryResolvers(lobby),
+		Mutation: getMutationResolvers(lobby),
 		Subscription: subscriptionResolvers
 	};
 };
