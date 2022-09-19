@@ -5,17 +5,18 @@ import { useServer } from 'graphql-ws/lib/use/ws';
 import express from 'express';
 import http from 'http';
 
-import { options } from './options';
+import { state } from './state';
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers/resolvers';
 import { LobbyOptions } from './types';
+import { createLobby } from './actions';
 
 export const startLobbyServer = async (lobbyOptions?: LobbyOptions) => {
 	const app = express();
 	const httpServer = http.createServer(app);
 
 	if (lobbyOptions) {
-		options.lobbyOptions = lobbyOptions;
+		state.lobby = createLobby(lobbyOptions);
 	}
 
 	const schema = makeExecutableSchema({ typeDefs, resolvers });

@@ -1,4 +1,7 @@
-import { lobby, pubsub } from './resolvers';
+import { pubsub } from './resolvers';
+import { state } from '../state';
+const { lobby } = state;
+
 import { createPlayer as createPlayerAction } from '../actions';
 import { createGame as createGameAction } from '../actions';
 import { joinGame as joinGameAction } from '../actions';

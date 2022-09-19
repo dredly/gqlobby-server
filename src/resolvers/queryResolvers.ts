@@ -1,4 +1,5 @@
-import { lobby } from './resolvers';
+import { state } from '../state';
+const { lobby } = state;
 
 export const queryResolvers = {
 	lobby: () => lobby,

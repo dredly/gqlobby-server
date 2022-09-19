@@ -1,5 +1,4 @@
 import { PubSub } from 'graphql-subscriptions';
-export declare const lobby: import("../types").Lobby;
 export declare const pubsub: PubSub;
 export declare const resolvers: {
     Query: {
