@@ -112,7 +112,7 @@ describe('toggleReady function', () => {
 describe('startGame function', () => {
 	it('updates the lobby as expected and returns the newly started game as expected when given valid input', () => {
 		const lobby = cd(lobbyWithReadyGame);
-		const updatedGame = startGame('1', lobby);
+		const updatedGame = startGame('2', lobby);
 		expect(updatedGame).toEqual({
 			...cd(lobby.games[0]),
 			status: 'IN_PROGRESS'
@@ -124,18 +124,23 @@ describe('startGame function', () => {
 		});
 	});
 
-	it('Throws an error if given a faulty gameId', () => {
+	it('Throws an error if given a faulty playerId', () => {
 		const lobby = cd(lobbyWithFullGame);
-		expect(() => startGame('7', lobby)).toThrowError('A game with that id was not found');
+		expect(() => startGame('7', lobby)).toThrowError('A game containing that player was not found');
 	});
 
 	it('Throws an error if not all players are ready', () => {
 		const lobby = cd(lobbyWithFullGame);
-		expect(() => startGame('1', lobby)).toThrowError('Players must all be ready to start game');
+		expect(() => startGame('2', lobby)).toThrowError('Players must all be ready to start game');
 	});
 
 	it('Throws an error if trying to start the game with not enough players', () => {
 		const lobby = cd(lobbyWithOneGameWithPlayerReady);
-		expect(() => startGame('1', lobby)).toThrowError('Not enough players to start game');
+		expect(() => startGame('2', lobby)).toThrowError('Not enough players to start game');
+	});
+
+	it('Throws an error if a player besides the creator of the game tries to start it', () => {
+		const lobby = cd(lobbyWithReadyGame);
+		expect(() => startGame('3', lobby)).toThrowError('Only the creator of the game can start it');
 	});
 });

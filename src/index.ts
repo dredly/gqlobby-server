@@ -1,3 +1,3 @@
-import start from './server';
+import { startLobbyServer } from './server';
 
-export default start;
+export default startLobbyServer;

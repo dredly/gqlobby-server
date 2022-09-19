@@ -2,8 +2,12 @@
 
 - [x] Finish initial set of resolvers
 - [x] Add subscriptions
-- [ ] Make it so only the creator of a game can start it?
-- [ ] Change so that lobby basically is the state and can simply change lobby options
+- [x] Make it so only the creator of a game can start it
+- [x] Change so that lobby basically is the state and can simply change lobby options
+- [x] Allow user to initalise lobby with options
+- [ ] Add resolvers for ending games and deleting games
+- [ ] Add query for game by id
+- [ ] Add filtering by status for allGames query
 
 ## Later on
 

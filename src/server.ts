@@ -5,12 +5,19 @@ import { useServer } from 'graphql-ws/lib/use/ws';
 import express from 'express';
 import http from 'http';
 
+import { options } from './options';
 import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers/resolvers';
+import { LobbyOptions } from './types';
 
-const start = async () => {
+export const startLobbyServer = async (lobbyOptions?: LobbyOptions) => {
 	const app = express();
 	const httpServer = http.createServer(app);
+
+	if (lobbyOptions) {
+		options.lobbyOptions = lobbyOptions;
+	}
+
 	const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 	const wsServer = new WebSocketServer({
@@ -53,6 +60,3 @@ const start = async () => {
 		console.log(`Server is now running on http://localhost:${PORT}`)
 	);
 };
-
-export default start;
-

@@ -1,7 +1,7 @@
-import { state } from './resolvers';
+import { lobby } from './resolvers';
 
 export const queryResolvers = {
-	lobby: () => state.lobby,
-	allGames: () => state.lobby.games,
-	allPlayersNotJoined: () => state.lobby.playersNotJoined
+	lobby: () => lobby,
+	allGames: () => lobby.games,
+	allPlayersNotJoined: () => lobby.playersNotJoined
 };

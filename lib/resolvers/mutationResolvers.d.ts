@@ -1,8 +1,4 @@
 export declare const mutationResolvers: {
-    createLobby: (_root: undefined, args: {
-        minPlayers: number;
-        maxPlayers: number;
-    }) => import("../types").Lobby;
     createPlayer: (_root: undefined, args: {
         name: string;
     }) => import("../types").Player;
@@ -17,6 +13,6 @@ export declare const mutationResolvers: {
         playerID: string;
     }) => import("../types").Game;
     startGame: (_root: undefined, args: {
-        gameID: string;
+        playerID: string;
     }) => import("../types").Game;
 };

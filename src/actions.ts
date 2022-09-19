@@ -6,11 +6,14 @@ import every from 'lodash.every';
 /*
 Trying to follow functional programming principals where possible, so only the lobby can be mutated
 Likewise, the only side effect these functions can have is to update the lobby
+
+Example 
+lobby.games = newGames is ok
+lobby.games.push(newGame) is not
 */
 
 const cd = cloneDeep;
 
-// Create lobby function is called once on server startup. If it is called after that, it replaces the old lobby with a new lobby
 export const createLobby = (lobbyOptions: LobbyOptions): Lobby => {
 	// Creates a lobby object
 
@@ -93,10 +96,13 @@ export const toggleReady = (playerId: string, lobby: Lobby): Game => {
 	return updatedGame;
 };
 
-export const startGame = (gameId: string, lobby: Lobby): Game => {
-	const game = lobby.games.find(g => g.id === gameId);
+export const startGame = (playerId: string, lobby: Lobby): Game => {
+	const game = lobby.games.find(g => g.players.map(p => p.id).includes(playerId));
 	if (!game) {
-		throw new Error('A game with that id was not found');
+		throw new Error('A game containing that player was not found');
+	}
+	if (!(playerId === game.players[0].id)) {
+		throw new Error('Only the creator of the game can start it');
 	}
 	const allReady = every(game.players.map(p => p.ready));
 	if (!allReady) {
@@ -111,6 +117,6 @@ export const startGame = (gameId: string, lobby: Lobby): Game => {
 		status: 'IN_PROGRESS'
 	};
 
-	lobby.games = lobby.games.map(g => g.id === gameId ? updatedGame : g);
+	lobby.games = lobby.games.map(g => g.id === game.id ? updatedGame : g);
 	return updatedGame;
 };

@@ -1,7 +1,5 @@
 import { PubSub } from 'graphql-subscriptions';
-export declare const state: {
-    lobby: import("../types").Lobby;
-};
+export declare const lobby: import("../types").Lobby;
 export declare const pubsub: PubSub;
 export declare const resolvers: {
     Query: {
@@ -10,10 +8,6 @@ export declare const resolvers: {
         allPlayersNotJoined: () => import("../types").Player[];
     };
     Mutation: {
-        createLobby: (_root: undefined, args: {
-            minPlayers: number;
-            maxPlayers: number;
-        }) => import("../types").Lobby;
         createPlayer: (_root: undefined, args: {
             name: string;
         }) => import("../types").Player;
@@ -28,7 +22,7 @@ export declare const resolvers: {
             playerID: string;
         }) => import("../types").Game;
         startGame: (_root: undefined, args: {
-            gameID: string;
+            playerID: string;
         }) => import("../types").Game;
     };
     Subscription: {
