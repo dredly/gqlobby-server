@@ -1,4 +1,5 @@
-export declare const mutationResolvers: {
+import { Lobby } from '../types';
+export declare const getMutationResolvers: (lobby: Lobby) => {
     createPlayer: (_root: undefined, args: {
         name: string;
     }) => import("../types").Player;

@@ -5,21 +5,19 @@ import { useServer } from 'graphql-ws/lib/use/ws';
 import express from 'express';
 import http from 'http';
 
-import { state } from './state';
 import { typeDefs } from './typeDefs';
-import { resolvers } from './resolvers/resolvers';
+import { getResolvers } from './resolvers/resolvers';
 import { LobbyOptions } from './types';
 import { createLobby } from './actions';
+import { DEFAULT_LOBBY_OPTIONS } from './constants';
 
 export const startLobbyServer = async (lobbyOptions?: LobbyOptions) => {
 	const app = express();
 	const httpServer = http.createServer(app);
 
-	if (lobbyOptions) {
-		state.lobby = createLobby(lobbyOptions);
-	}
+	const lobby = createLobby(lobbyOptions ? lobbyOptions : DEFAULT_LOBBY_OPTIONS);
 
-	const schema = makeExecutableSchema({ typeDefs, resolvers });
+	const schema = makeExecutableSchema({ typeDefs, resolvers: getResolvers(lobby) });
 
 	const wsServer = new WebSocketServer({
 		// This is the `httpServer` returned by createServer(app);

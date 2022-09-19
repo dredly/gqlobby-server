@@ -1,8 +1,9 @@
-import { state } from '../state';
-const { lobby } = state;
+import { Lobby } from '../types';
 
-export const queryResolvers = {
-	lobby: () => lobby,
-	allGames: () => lobby.games,
-	allPlayersNotJoined: () => lobby.playersNotJoined
+export const getQueryResolvers = (lobby: Lobby) => {
+	return {
+		lobby: () => lobby,
+		allGames: () => lobby.games,
+		allPlayersNotJoined: () => lobby.playersNotJoined
+	};
 };
