@@ -6,17 +6,24 @@ import express from 'express';
 import http from 'http';
 import { typeDefs } from './typeDefs';
 import { getResolvers } from './resolvers/resolvers';
-import { LobbyOptions } from './types';
+import { ServerOptions } from './types';
 import { createLobby } from './actions';
 import { DEFAULT_LOBBY_OPTIONS } from './constants';
+import { mergeSchemas } from '@graphql-tools/schema';
 
-export const startLobbyServer = async (lobbyOptions?: LobbyOptions) => {
+export const startLobbyServer = async (serverOptions?: ServerOptions) => {
 	const app = express();
 	const httpServer = http.createServer(app);
 
-	const lobby = createLobby(lobbyOptions ? lobbyOptions : DEFAULT_LOBBY_OPTIONS);
+	const lobby = createLobby(
+		serverOptions?.lobbyOptions ? serverOptions.lobbyOptions : DEFAULT_LOBBY_OPTIONS
+	);
 
-	const schema = makeExecutableSchema({ typeDefs, resolvers: getResolvers(lobby) });
+	const lobbySchema = makeExecutableSchema({ typeDefs, resolvers: getResolvers(lobby) });
+
+	const schema = serverOptions?.schema 
+		? mergeSchemas({ schemas: [lobbySchema, serverOptions.schema] }) 
+		: lobbySchema;
 
 	const wsServer = new WebSocketServer({
 		// This is the `httpServer` returned by createServer(app);

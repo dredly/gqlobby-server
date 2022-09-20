@@ -1,3 +1,5 @@
+import { GraphQLSchema } from 'graphql';
+
 export interface Player {
     id: string
     name: string
@@ -21,4 +23,9 @@ export interface Lobby {
     games: Game[],
     playersNotJoined: Player[],
     lobbyOptions: LobbyOptions
+}
+
+export interface ServerOptions {
+    lobbyOptions?: LobbyOptions
+    schema?: GraphQLSchema
 }
