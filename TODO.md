@@ -10,6 +10,7 @@
 - [x] Add filtering by status for allGames query
 - [x] Add option to add own set of resolvers and queries before starting the server
     - [x] Make all startup options optional
+- [x] Add port as an optional argument in server startup function
 
 ## Later on
 

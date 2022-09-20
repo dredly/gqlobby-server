@@ -28,7 +28,11 @@ void startLobbyServer({ lobbyOptions: {minPlayers: 3, maxPlayers: 6}});
 
 ```
 
-A server will be created automatically using Apollo-Server and GraphQL
+A server will be created automatically using Apollo-Server and GraphQL. If you need to change the port from the default of 4000, simply pass a value to the `port` option.
+
+```typescript
+void startLobbyServer({ port: 8080 });
+```
 
 Simply open up [http://localhost:4000/](http://localhost:4000/) to access Apollo studio and see all the queries, mutations and subscriptions available.
 

@@ -28,4 +28,5 @@ export interface Lobby {
 export interface ServerOptions {
     lobbyOptions?: LobbyOptions
     schema?: GraphQLSchema
+    port?: number
 }

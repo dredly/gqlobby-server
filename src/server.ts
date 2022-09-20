@@ -59,7 +59,7 @@ export const startLobbyServer = async (serverOptions?: ServerOptions) => {
 		path: '/',
 	});
 
-	const PORT = 4000;
+	const PORT = serverOptions?.port ? serverOptions.port : 4000;
 
 	httpServer.listen(PORT, () =>
 		console.log(`Server is now running on http://localhost:${PORT}`)
