@@ -4,8 +4,13 @@ export declare const pubsub: PubSub;
 export declare const getResolvers: (lobby: Lobby) => {
     Query: {
         lobby: () => Lobby;
-        allGames: () => import("../types").Game[];
+        allGames: (_root: undefined, args: {
+            gameStatus?: import("../types").GameStatus | undefined;
+        }) => import("../types").Game[];
         allPlayersNotJoined: () => import("../types").Player[];
+        gameById: (_root: undefined, args: {
+            gameID: string;
+        }) => import("../types").Game;
     };
     Mutation: {
         createPlayer: (_root: undefined, args: {

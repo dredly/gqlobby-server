@@ -32,8 +32,9 @@ export const typeDefs = gql`
 
     type Query {
         lobby: Lobby!
-        allGames: [Game!]!
+        allGames(gameStatus: GameStatus): [Game!]!
         allPlayersNotJoined: [Player!]!
+        gameById(gameId: ID!): Game
     }
 
     type Mutation {

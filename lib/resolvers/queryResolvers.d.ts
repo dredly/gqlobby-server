@@ -1,6 +1,11 @@
-import { Lobby } from '../types';
+import { GameStatus, Lobby } from '../types';
 export declare const getQueryResolvers: (lobby: Lobby) => {
     lobby: () => Lobby;
-    allGames: () => import("../types").Game[];
+    allGames: (_root: undefined, args: {
+        gameStatus?: GameStatus;
+    }) => import("../types").Game[];
     allPlayersNotJoined: () => import("../types").Player[];
+    gameById: (_root: undefined, args: {
+        gameID: string;
+    }) => import("../types").Game;
 };
