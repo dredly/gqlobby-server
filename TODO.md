@@ -8,7 +8,8 @@
 - [x] Add resolvers for ending games and deleting games
 - [x] Add query for game by id
 - [x] Add filtering by status for allGames query
-- [ ] Add option to add own set of resolvers and queries before starting the server
+- [x] Add option to add own set of resolvers and queries before starting the server
+    - [x] Make all startup options optional
 
 ## Later on
 

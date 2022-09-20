@@ -1,2 +1,2 @@
-import { LobbyOptions } from './types';
-export declare const startLobbyServer: (lobbyOptions?: LobbyOptions) => Promise<void>;
+import { ServerOptions } from './types';
+export declare const startLobbyServer: (serverOptions?: ServerOptions) => Promise<void>;

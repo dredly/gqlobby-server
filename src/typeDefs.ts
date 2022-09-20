@@ -6,37 +6,31 @@ export const typeDefs = gql`
         name: String!
         ready: Boolean!
     }
-
     enum GameStatus {
         NOT_STARTED
         IN_PROGRESS
         FINISHED
     }
-
     type Game {
         id: ID!
         players: [Player!]!
         status: GameStatus
     }
-
     type LobbyOptions {
         minPlayers: Int!
         maxPlayers: Int!
     }
-
     type Lobby {
         games: [Game!]!
         playersNotJoined: [Player!]!
         lobbyOptions: LobbyOptions
     }
-
     type Query {
         lobby: Lobby!
         allGames(gameStatus: GameStatus): [Game!]!
         allPlayersNotJoined: [Player!]!
         gameById(gameID: ID!): Game
     }
-
     type Mutation {
         createLobby(minPlayers: Int! maxPlayers: Int!): Lobby
         createPlayer(name: String!): Player
@@ -47,7 +41,6 @@ export const typeDefs = gql`
         endGame(gameID: ID!): Game
         removeGame(gameID: ID!): Game
     }
-
     type Subscription {
         gameAdded: Game!
         gameUpdated: Game!
