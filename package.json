@@ -1,6 +1,6 @@
 {
   "name": "gqlobby-server",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "A package to make a lobby for any online multiplayer game, built on GraphQL subscriptions",
   "main": "./lib/index.js",
   "files": ["/lib"],

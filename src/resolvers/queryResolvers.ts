@@ -11,6 +11,9 @@ export const getQueryResolvers = (lobby: Lobby) => {
 		},
 		allPlayersNotJoined: () => lobby.playersNotJoined,
 		gameById: (_root: undefined, args: {gameID: string}) => {
+			console.log('Showing args the lobby');
+			console.dir(args, {depth: null});
+			console.dir(lobby, {depth: null});
 			const foundGame = lobby.games.find(g => g.id === args.gameID);
 			if (!foundGame) {
 				throw new Error('A game with that id was not found');
