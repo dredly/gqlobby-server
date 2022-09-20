@@ -52,5 +52,7 @@ export const typeDefs = gql`
         gameAdded: Game!
         gameUpdated: Game!
         gameStarted: Game!
+        gameEnded: Game!
+        gameRemoved: Game!
     }
 `;
