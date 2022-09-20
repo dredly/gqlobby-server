@@ -5,6 +5,8 @@ import { createGame as createGameAction } from '../actions';
 import { joinGame as joinGameAction } from '../actions';
 import { toggleReady as toggleReadyAction } from '../actions';
 import { startGame as startGameAction } from '../actions';
+import { endGame as endGameAction } from '../actions';
+import { removeGame as removeGameAction } from '../actions';
 import { Lobby } from '../types';
 
 export const getMutationResolvers = (lobby: Lobby) => {
@@ -20,7 +22,7 @@ export const getMutationResolvers = (lobby: Lobby) => {
 			void pubsub.publish('GAME_UPDATED', {gameUpdated: joinedGame});
 			return joinedGame;
 		},
-		toggleReady: (_root: undefined, args: {playerID: string}) =>  {
+		toggleReady: (_root: undefined, args: {playerID: string}) => {
 			const updatedGame = toggleReadyAction(args.playerID, lobby);
 			void pubsub.publish('GAME_UPDATED', {gameUpdated: updatedGame});
 			return updatedGame;
@@ -29,6 +31,16 @@ export const getMutationResolvers = (lobby: Lobby) => {
 			const startedGame = startGameAction(args.playerID, lobby);
 			void pubsub.publish('GAME_STARTED', {gameStarted: startedGame});
 			return startedGame;
-		} 
+		},
+		endGame: (_root: undefined, args: {gameID: string}) => {
+			const endedGame = endGameAction(args.gameID, lobby);
+			void pubsub.publish('GAME_ENDED', {gameEnded: endedGame});
+			return endedGame;
+		},
+		removeGame: (_root: undefined, args: {gameID: string}) => {
+			const removedGame = removeGameAction(args.gameID, lobby);
+			void pubsub.publish('GAME_REMOVED', {gameRemoved: removedGame});
+			return removedGame;
+		}
 	};
 }; 

@@ -4,7 +4,6 @@ import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import express from 'express';
 import http from 'http';
-
 import { typeDefs } from './typeDefs';
 import { getResolvers } from './resolvers/resolvers';
 import { LobbyOptions } from './types';

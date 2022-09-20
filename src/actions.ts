@@ -120,3 +120,29 @@ export const startGame = (playerId: string, lobby: Lobby): Game => {
 	lobby.games = lobby.games.map(g => g.id === game.id ? updatedGame : g);
 	return updatedGame;
 };
+
+export const endGame = (gameId: string, lobby: Lobby): Game => {
+	const game = lobby.games.find(g => g.id === gameId);
+	if (!game) {
+		throw new Error('A game with that id was not found');
+	}
+	if (!(game.status === 'IN_PROGRESS')) {
+		throw new Error('Only games in progress can be ended');
+	}
+	const endedGame: Game = {
+		...cd(game),
+		status: 'FINISHED'
+	};
+
+	lobby.games = lobby.games.map(g => g.id === gameId ? endedGame : g);
+	return endedGame;
+};
+
+export const removeGame = (gameId: string, lobby: Lobby): Game => {
+	const game = lobby.games.find(g => g.id === gameId);
+	if (!game) {
+		throw new Error('A game with that id was not found');
+	}
+	lobby.games = lobby.games.filter(g => g.id !== gameId);
+	return game;
+};

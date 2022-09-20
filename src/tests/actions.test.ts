@@ -1,4 +1,4 @@
-import { createLobby, createPlayer, createGame, joinGame, toggleReady, startGame } from '../actions';
+import { createLobby, createPlayer, createGame, joinGame, toggleReady, startGame, endGame, removeGame } from '../actions';
 import cloneDeep from 'lodash.clonedeep';
 import { 
 	emptyLobby, 
@@ -142,5 +142,48 @@ describe('startGame function', () => {
 	it('Throws an error if a player besides the creator of the game tries to start it', () => {
 		const lobby = cd(lobbyWithReadyGame);
 		expect(() => startGame('3', lobby)).toThrowError('Only the creator of the game can start it');
+	});
+});
+
+describe('endGame function', () => {
+	it('updates the lobby as expected and returns the newly ended game as expected when given valid input', () => {
+		const lobby = cd(lobbyWithReadyGame);
+		const startedGame = startGame('2', lobby);
+
+		const endedGame = endGame('1', lobby);
+		expect(endedGame).toEqual({
+			...cd(startedGame),
+			status: 'FINISHED'
+		});
+
+		expect(lobby).toEqual({
+			...cd(lobbyWithReadyGame),
+			games: [endedGame]
+		});
+	});
+
+	it('Throws an error if trying to end a game that has not started', () => {
+		const lobby = cd(lobbyWithReadyGame);
+		expect(() => endGame('1', lobby)).toThrowError('Only games in progress can be ended');
+	});
+
+	it('Throws an error if given a faulty gameId', () => {
+		const lobby = cd(lobbyWithReadyGame);
+		startGame('2', lobby);
+		expect(() => endGame('182', lobby)).toThrowError('A game with that id was not found');
+	});
+});
+
+describe('removeGame function', () => {
+	it('updates the lobby and returns the newly removed game as expected when given valid input', () => {
+		const lobby = cd(lobbyWithReadyGame);
+		const removedGame = removeGame('1', lobby);
+		expect(removedGame).toEqual(lobbyWithReadyGame.games[0]);
+		expect(lobby.games).toHaveLength(0);
+	});
+
+	it('Throws an error if given a faulty gameId', () => {
+		const lobby = cd(lobbyWithReadyGame);
+		expect(() => removeGame('182', lobby)).toThrowError('A game with that id was not found');
 	});
 });

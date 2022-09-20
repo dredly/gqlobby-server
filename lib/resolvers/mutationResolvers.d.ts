@@ -16,4 +16,10 @@ export declare const getMutationResolvers: (lobby: Lobby) => {
     startGame: (_root: undefined, args: {
         playerID: string;
     }) => import("../types").Game;
+    endGame: (_root: undefined, args: {
+        gameID: string;
+    }) => import("../types").Game;
+    removeGame: (_root: undefined, args: {
+        gameID: string;
+    }) => import("../types").Game;
 };

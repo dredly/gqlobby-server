@@ -43,6 +43,8 @@ export const typeDefs = gql`
         joinGame(gameID: ID! playerID: ID!): Game
         toggleReady(playerID: ID!): Game
         startGame(playerID: ID!): Game
+        endGame(gameID: ID!): Game
+        removeGame(gameID: ID!): Game
     }
 
     type Subscription {

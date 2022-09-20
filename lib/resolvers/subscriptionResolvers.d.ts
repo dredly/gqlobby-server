@@ -8,4 +8,10 @@ export declare const subscriptionResolvers: {
     gameStarted: {
         subscribe: () => AsyncIterator<unknown, any, undefined>;
     };
+    gameEnded: {
+        subscribe: () => AsyncIterator<unknown, any, undefined>;
+    };
+    gameRemoved: {
+        subscribe: () => AsyncIterator<unknown, any, undefined>;
+    };
 };

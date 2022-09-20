@@ -10,4 +10,10 @@ export const subscriptionResolvers = {
 	gameStarted: {
 		subscribe: () => pubsub.asyncIterator(['GAME_STARTED'])
 	},
+	gameEnded: {
+		subscribe: () => pubsub.asyncIterator(['GAME_ENDED'])
+	},
+	gameRemoved: {
+		subscribe: () => pubsub.asyncIterator(['GAME_REMOVED'])
+	}
 };

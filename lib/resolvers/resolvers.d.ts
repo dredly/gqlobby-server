@@ -24,6 +24,12 @@ export declare const getResolvers: (lobby: Lobby) => {
         startGame: (_root: undefined, args: {
             playerID: string;
         }) => import("../types").Game;
+        endGame: (_root: undefined, args: {
+            gameID: string;
+        }) => import("../types").Game;
+        removeGame: (_root: undefined, args: {
+            gameID: string;
+        }) => import("../types").Game;
     };
     Subscription: {
         gameAdded: {
@@ -33,6 +39,12 @@ export declare const getResolvers: (lobby: Lobby) => {
             subscribe: () => AsyncIterator<unknown, any, undefined>;
         };
         gameStarted: {
+            subscribe: () => AsyncIterator<unknown, any, undefined>;
+        };
+        gameEnded: {
+            subscribe: () => AsyncIterator<unknown, any, undefined>;
+        };
+        gameRemoved: {
             subscribe: () => AsyncIterator<unknown, any, undefined>;
         };
     };

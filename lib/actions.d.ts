@@ -5,3 +5,5 @@ export declare const createGame: (creatorId: string, lobby: Lobby) => Game;
 export declare const joinGame: (gameId: string, playerId: string, lobby: Lobby) => Game;
 export declare const toggleReady: (playerId: string, lobby: Lobby) => Game;
 export declare const startGame: (playerId: string, lobby: Lobby) => Game;
+export declare const endGame: (gameId: string, lobby: Lobby) => Game;
+export declare const removeGame: (gameId: string, lobby: Lobby) => Game;
