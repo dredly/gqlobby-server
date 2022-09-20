@@ -34,7 +34,7 @@ export const typeDefs = gql`
         lobby: Lobby!
         allGames(gameStatus: GameStatus): [Game!]!
         allPlayersNotJoined: [Player!]!
-        gameById(gameId: ID!): Game
+        gameById(gameID: ID!): Game
     }
 
     type Mutation {
