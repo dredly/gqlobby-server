@@ -50,6 +50,7 @@ export const startLobbyServer = async (serverOptions?: ServerOptions) => {
 				},
 			},
 		],
+		cache: 'bounded'
 	});
 
 	await server.start();
