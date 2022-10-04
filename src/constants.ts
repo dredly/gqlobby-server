@@ -1,6 +1,9 @@
-import { LobbyOptions } from './types';
+import { GameMode } from './types';
 
-export const DEFAULT_LOBBY_OPTIONS: LobbyOptions = {
-	minPlayers: 2,
-	maxPlayers: 4
-};
+export const DEFAULT_GAME_MODES: GameMode[] = [
+	{
+		name: 'default',
+		minPlayers: 2,
+		maxPlayers: 4
+	}
+];

@@ -14,7 +14,8 @@ export interface Game {
     players: Player[]
 }
 
-export interface LobbyOptions {
+export interface GameMode {
+    name: string,
     minPlayers: number,
     maxPlayers: number,
 }
@@ -22,11 +23,11 @@ export interface LobbyOptions {
 export interface Lobby {
     games: Game[],
     playersNotJoined: Player[],
-    lobbyOptions: LobbyOptions
+    gameModes: GameMode[]
 }
 
 export interface ServerOptions {
-    lobbyOptions?: LobbyOptions
     schema?: GraphQLSchema
     port?: number
+    gameModes?: GameMode[]
 }

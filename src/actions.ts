@@ -1,4 +1,4 @@
-import { LobbyOptions, Lobby, Player, Game } from './types';
+import { Lobby, Player, Game, GameMode } from './types';
 import { v4 as uuidv4 } from 'uuid';
 import cloneDeep from 'lodash.clonedeep';
 import every from 'lodash.every';
@@ -14,16 +14,14 @@ lobby.games.push(newGame) is not
 
 const cd = cloneDeep;
 
-export const createLobby = (lobbyOptions: LobbyOptions): Lobby => {
+export const createLobby = (gameModes: GameMode[]): Lobby => {
 	// Creates a lobby object
 
-	if (lobbyOptions.maxPlayers < lobbyOptions.minPlayers) {
-		throw new Error('maxPlayers must be greater or equal than minPlayers');
-	}
+	//TODO: check that all gameModes are valid
 	return {
 		games: [],
 		playersNotJoined: [],
-		lobbyOptions
+		gameModes
 	};
 };
 

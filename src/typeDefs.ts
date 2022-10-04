@@ -28,6 +28,7 @@ export const typeDefs = gql`
     type Query {
         lobby: Lobby!
         allGames(gameStatus: GameStatus): [Game!]!
+        gameModes: [String!]!
         allPlayersNotJoined: [Player!]!
         gameById(gameID: ID!): Game
     }

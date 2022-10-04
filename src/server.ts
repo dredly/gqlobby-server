@@ -8,12 +8,16 @@ import { typeDefs } from './typeDefs';
 import { getResolvers } from './resolvers/resolvers';
 import { ServerOptions } from './types';
 import { createLobby } from './actions';
-import { DEFAULT_LOBBY_OPTIONS } from './constants';
+import { DEFAULT_GAME_MODES } from './constants';
 import { mergeSchemas } from '@graphql-tools/schema';
 
 export const startLobbyServer = async (serverOptions?: ServerOptions) => {
 	const app = express();
 	const httpServer = http.createServer(app);
+
+	const gameModes = serverOptions?.gameModes
+		? serverOptions.gameModes
+		: DEFAULT_GAME_MODES;
 
 	const lobby = createLobby(
 		serverOptions?.lobbyOptions ? serverOptions.lobbyOptions : DEFAULT_LOBBY_OPTIONS
