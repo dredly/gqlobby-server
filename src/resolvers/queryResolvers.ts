@@ -16,6 +16,10 @@ export const getQueryResolvers = (lobby: Lobby) => {
 				throw new Error('A game with that id was not found');
 			}
 			return foundGame;
+		},
+		gameExists: (_root: undefined, args: {gameID: string}) => {
+			const game = lobby.games.find(g => g.id === args.gameID);
+			return game ? true : false;
 		}
 	};
 };
