@@ -30,6 +30,7 @@ export const typeDefs = gql`
         allGames(gameStatus: GameStatus): [Game!]!
         allPlayersNotJoined: [Player!]!
         gameById(gameID: ID!): Game
+        gameExists(gameID: ID!): Boolean!
     }
     type Mutation {
         createLobby(minPlayers: Int! maxPlayers: Int!): Lobby
